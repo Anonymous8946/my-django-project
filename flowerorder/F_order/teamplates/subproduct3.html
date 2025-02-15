@@ -1,0 +1,96 @@
+{% extends 'master.html' %}
+
+{% block body %}
+<head>
+    <style>
+        video {
+           position: fixed;
+           right: 0;
+           bottom: 0;
+           width: 100%; /* Adjust width to fill the container */
+           height: 100%; /* Adjust height to fill the container */
+           object-fit: cover; /* Maintain aspect ratio while covering the container */
+           z-index: -1;
+       }
+
+       .half-circle-container {
+           width: 300px;
+           height: 300px;
+           border-radius: 150px 150px 0 0;
+           background-color: #3498db;
+           position: relative;
+           overflow: hidden; /* Hide overflow to create a half-circle effect */
+           margin-top: 50px; /* Adjust margin-top as needed */
+           background: url('flower\Flower Gift Boxes.jpg') no-repeat center center;
+           background-size: cover;
+       }
+
+       .card img {
+           display: flex;
+           width: 300px;
+           height: 275px;
+             /* Hide the image element if using a background image */
+           border-radius: 15px;
+       }
+
+       .card {
+           border-radius: 15px; /* Adjust the border radius as needed */
+       }
+       
+       .card,
+       .half-circle-container,
+       .content {
+          
+           opacity: 0.9; /* Adjust the opacity value as needed (0 to 1) */
+       }
+   </style>
+</head>
+<body>
+       <video autoplay muted loop>
+        <source src="/static/flower4.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <div class="containar mt-5">
+        <div class="row" >
+            <div class="col-lg-12">
+                <form action="manage cart.php" method="POST">
+                <div class="card">
+                <a href="flower.php">
+                <img src="/static/image/gift lixury .jpg" loading="eager" alt="gift luxury" srcset="flower\gift lixury .jpg" title="gift luxury" style="display:inline; width:100%; height:100%">
+
+                </a>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        {% if selected_lastproduct %}
+        <h1 style="color: #3498db; margin: 20px;">Subproducts for {{ selected_lastproduct.name }}</h1>
+        <div class="row">
+            {% for sub in sublastproduct %}
+            <div class="col-lg-3" style="display:inline; width:100%; height:500px;">
+                <div class="card">
+                    
+                    <!-- Use the correct variable `sub.image.url` -->
+                    <img src="{{ sub.image.url }}" alt="{{ sub.name }}" class="card-img-top" style="display:inline; width:100%; height:300px;">
+                    
+                    <div class="card-body text-center">
+                        <!-- Use `sub.name` and `sub.price` for displaying the correct data -->
+                        <h3 style="height: 60px; font-size: medium;">{{ sub.name }}</h3>
+                        <p>₹{{ sub.price }}</p>
+                    </div>
+                     
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <h1>No specific product selected.</h1>
+        {% endif %}
+    </div>
+    
+</body>
+{% endblock %}

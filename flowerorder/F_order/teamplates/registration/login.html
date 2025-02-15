@@ -1,0 +1,154 @@
+{% extends 'master.html/' %}
+{% block body%}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+    <style>
+        body {
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: transparent;
+            overflow: hidden; /* Hide overflow to prevent scrollbars */
+        }
+        video {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            width: 100%; /* Adjust width to fill the container */
+            height: 100%; /* Adjust height to fill the container */
+            object-fit: cover; /* Maintain aspect ratio while covering the container */
+            z-index: -1;
+            }
+        .form-container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            flex-direction: row;
+            padding: 7.2%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+        }
+        .form-container img {
+            width: 300px;
+            height: 300px;
+            margin-right: 30px;
+            margin-left: -50px;
+            border-radius: 15px;
+            opacity: 0.9; /* Adjust the opacity value as needed (0 to 1) */
+        }
+       
+        form {
+            max-width: 400px;
+            padding: 20px;
+            background-color: transparent;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color:red;
+        }
+        
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: #007bff;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+        .btn{
+            display: block;
+            color: #fff;
+            cursor: pointer;
+            background-color: #007bff;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .input-box {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .input-box .icon {
+            position: absolute;
+            top: 50%;
+            left: 10px;
+            transform: translateY(-50%);
+            color: #888;
+        }
+
+        .input-box input {
+            width: 100%;
+            padding: 10px 10px 10px 40px; /* Add left padding for the icon */
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            outline: none;
+            font-size: 16px;
+        }
+
+        .input-box input:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+    </style>
+    <title>Login Form</title>
+</head>
+<body>
+    {% load static %}
+    <video autoplay muted loop>
+        <source src="{% static 'flower4.mp4' %}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div class="form-container">
+        <img src="{% static 'image/login.jpg' %}" alt="Lock icon">
+        <form method="POST">
+            {% csrf_token %}
+            <h2>Login</h2>
+            {% for field in form %}
+                <div class="input-box">
+                    <span class="icon">
+                        {% if field.name == 'username' %}
+                            <ion-icon name="person"></ion-icon>
+                        {% elif field.name == 'password' %}
+                            <ion-icon name="lock-closed"></ion-icon>
+                        {% endif %}<label for=""style="margin: 10px;">{{field.label_tag}}</label>
+                    </span>
+                    {{ field }}
+                    {{ field.errors }}
+                </div>
+            {% endfor %}
+            <button type="submit">Login</button>
+            <a href="{% url 'signup' %}" class="btn">Signup</a>
+            <div class="for" style="float:right; margin: 10px;" >
+                <a href="{% url 'password_reset' %}" style="margin: 10px;">Forgot password</a>
+            </div>
+            
+        </form>
+        
+        
+    </div>
+</body>
+</html>
+
+{% endblock %}

@@ -1,0 +1,143 @@
+{% extends 'master.html' %}
+
+{% block body %}
+<head>
+    <style>
+        video {
+           position: fixed;
+           right: 0;
+           bottom: 0;
+           width: 100%; /* Adjust width to fill the container */
+           height: 100%; /* Adjust height to fill the container */
+           object-fit: cover; /* Maintain aspect ratio while covering the container */
+           z-index: -1;
+       }
+
+       .half-circle-container {
+           width: 300px;
+           height: 300px;
+           border-radius: 150px 150px 0 0;
+           background-color: #3498db;
+           position: relative;
+           overflow: hidden; /* Hide overflow to create a half-circle effect */
+           margin-top: 50px; /* Adjust margin-top as needed */
+           background: url('flower\Flower Gift Boxes.jpg') no-repeat center center;
+           background-size: cover;
+       }
+
+       .card img {
+           display: flex;
+           width: 300px;
+           height: 275px;
+             /* Hide the image element if using a background image */
+           border-radius: 15px;
+       }
+
+       .card {
+           border-radius: 15px; /* Adjust the border radius as needed */
+       }
+       
+       .card,
+       .half-circle-container,
+       .content {
+          
+           opacity: 0.9; /* Adjust the opacity value as needed (0 to 1) */
+       }
+   </style>
+</head>
+<body>
+    <video autoplay muted loop>
+        <source src="/static/flower4.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>    
+
+    <!-- Selected Main Product Section -->
+    <div class="container mt-5">
+        {% if selected_mainproduct %}
+        <h2 style="color: #3498db; margin: 20px;">Your Selected Product: {{ selected_mainproduct.name }}</h2>
+        <div class="row">
+            <div class="col-lg-4">
+                
+                    <div class="card">
+                        {% csrf_token %}
+
+                        <img src="{{ selected_mainproduct.image.url }}" alt="{{ selected_mainproduct.name }}" style="display:inline; width:100%; height:300px;">
+                        <div class="card-body text-center">
+                            <h3 style=" color: #d84d4d; height: 60px; font-size: medium;">{{ selected_mainproduct.name }}</h3>
+                            <p class="card-text">₹{{ selected_mainproduct.price }}</p>
+                        </div>
+                    </div>
+            </div>
+
+            <div class="discription-head">
+                <h1 style="color: aqua;">{{ selected_mainproduct.name }}</h1>
+                <br>
+                <div class="row">
+                    <div class="circular-container">
+                        <img src="{{ selected_mainproduct.image2.url }}" alt="Image 1" class="circular-image">
+                    </div>
+                    <div class="circular-container">
+                        <img src="{{ selected_mainproduct.image3.url }}" alt="Image 2" class="circular-image">
+                    </div>
+                    <div class="circular-container">
+                        <video controls class="circular-video"><source src="{{ selected_mainproduct.video.url }}" alt="video" class="circular-image">
+                        </video>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <h1>No specific main product selected.</h1>
+        {% endif %}
+    </div>
+    <style>
+        .circular-container {
+            width: 250px;
+            height: 250px;
+            overflow: hidden;
+            border-radius: 50%;
+            margin: 5px; /* Adjust as needed for spacing between images and video */
+        }
+
+        .circular-image {
+            display: block;
+            width: 250px;
+            height: auto;
+            border-radius: 50%;
+        }
+        .circular-video{
+            position: static;
+            width: 250px;
+            height: 250px;
+            overflow: hidden;
+            border-radius: 50%;
+
+        }
+
+    </style>
+    <!-- Subproduct Section -->
+    <div class="container mt-5">
+        <h2 style="color: aquamarine; margin: 20px;">Make your Gift Extra Special With {{ selected_mainproduct.name }}</h2>
+        <div class="row">
+            {% for main in mainsubproduct %}
+                <div class="col-lg-4">
+                    <form action="" method="POST">
+                        <div class="card">
+                            <a href="">
+                                <img src="{{ main.image.url }}" alt="{{ main.name }}" style="display:inline; width:100%; height:300px;">
+                            </a>
+                            <div class="card-body text-center">
+                                <h3 style="height: 60px; font-size: medium;">{{ main.name }}</h3>
+                                
+                                <input type="hidden" name="Item_Name" value="{{ main.name }}">
+                                <input type="hidden" name="Price" value="{{ main.price }}">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            {% endfor %}
+        </div>
+        
+    </div>
+</body>
+{% endblock %}

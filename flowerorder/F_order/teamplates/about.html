@@ -1,0 +1,64 @@
+{% extends 'master.html' %}
+
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+         video {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            width: 100%; /* Adjust width to fill the container */
+            height: 100%; /* Adjust height to fill the container */
+            object-fit: cover; /* Maintain aspect ratio while covering the container */
+            z-index: -1;
+        }
+        p{
+            font-size: 20px;
+            color: aqua;
+        }
+        h3{
+            color:blue; 
+        }
+    </style>
+</head>
+<body>
+    <video autoplay muted loop>
+        <source src="/static/flower4.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div class="text-center" style="color: yellow;">
+    <P class="text-center" >
+    <h3 class="text-center" >About Our Flower Order System</h3><p>
+Welcome to our flower order system! We are dedicated to providing you with the freshest and most beautiful flowers for all your special occasions. Whether you're celebrating a birthday, anniversary, wedding, or simply want to brighten someone's day, our flower delivery service has got you covered.
+</p>
+<h3 class="text-center" >Our Mission</h3><p>
+Our mission is to spread joy and happiness through the beauty of flowers. We believe that flowers have the power to convey emotions and create memorable experiences. That's why we strive to deliver the finest quality blooms and exceptional customer service to ensure that every order exceeds your expectations.
+</p>
+<h3 class="text-center" >What We Offer</h3><p>
+Wide Selection: Choose from a wide variety of flowers, including roses, lilies, orchids, tulips, and more. We offer arrangements for every occasion, from elegant bouquets to cheerful mixed assortments.
+
+Freshness Guaranteed: We source our flowers from local growers and trusted suppliers to ensure freshness and longevity. Each bloom is carefully inspected and handpicked by our expert florists to ensure the highest quality.
+
+Customization: Personalize your order with special add-ons such as chocolates, balloons, teddy bears, or personalized messages. Create a custom arrangement that perfectly suits your recipient's taste and preferences.
+
+Convenient Delivery: Enjoy hassle-free delivery right to your doorstep or directly to your recipient's address. We offer same-day and next-day delivery options to accommodate last-minute orders and surprise deliveries.
+</p>
+<h3 class="text-center" >Our Team</h3><p>
+Behind every beautiful bouquet is a team of passionate florists dedicated to their craft. Our team brings creativity, expertise, and attention to detail to every arrangement they create. From classic designs to contemporary styles, our florists take pride in crafting stunning floral creations that leave a lasting impression.
+</p>
+<h3 class="text-center" >Contact Us</h3><p>
+Have questions or need assistance? Our friendly customer support team is here to help! Feel free to reach out to us via phone, email, or live chat, and we'll be happy to assist you with any inquiries or special requests.
+
+Thank you for choosing our flower order system. We look forward to helping you celebrate life's special moments with our exquisite flowers!
+</p>
+
+</P>
+</div>
+</body>
+</html>
+{% endblock %}

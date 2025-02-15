@@ -1,0 +1,156 @@
+{% extends 'master.html/' %}
+{% block body%}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+    <title>Roses Bouquet</title>
+
+    <style>
+         video {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            width: 100%; /* Adjust width to fill the container */
+            height: 100%; /* Adjust height to fill the container */
+            object-fit: cover; /* Maintain aspect ratio while covering the container */
+            z-index: -1;
+        }
+
+        .half-circle-container {
+            width: 300px;
+            height: 300px;
+            border-radius: 150px 150px 0 0;
+            background-color: #3498db;
+            position: relative;
+            overflow: hidden; /* Hide overflow to create a half-circle effect */
+            margin-top: 50px; /* Adjust margin-top as needed */
+            background: url('flower\Flower Gift Boxes.jpg') no-repeat center center;
+            background-size: cover;
+        }
+
+        .card img {
+            display: flex;
+            width: 300px;
+            height: 275px;
+              /* Hide the image element if using a background image */
+            border-radius: 15px;
+        }
+
+        .card {
+            border-radius: 15px; /* Adjust the border radius as needed */
+        }
+        
+        .card,
+        .half-circle-container,
+        .content {
+           
+            opacity: 0.9; /* Adjust the opacity value as needed (0 to 1) */
+        }
+    </style>
+    
+</head>
+<body>
+
+    <video autoplay muted loop>
+        <source src="static/flower4.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <div class="containar mt-5">
+        <div class="row" >
+            <div class="col-lg-12">
+                <form action="manage cart.php" method="POST">
+                <div class="card">
+                <a href="flower.php">
+                <img src="static/image/gift lixury .jpg" loading="eager" alt="gift luxury" srcset="flower\gift lixury .jpg" title="gift luxury" style="display:inline; width:100%; height:100%">
+
+                </a>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <p><h3 class="text-center" style="color: pink;">Online Flower Delivery</h3></p>
+    
+    <div class="containar mt-5">
+        <div class="row">
+            {% for prod in product %}
+            <div class="col-lg-2" style="display:inline; width:100%; height:500px;">
+                <div class="card" id="{{ prod.id }}">
+                    <a href="{% url 'subproduct' prod.id %}">
+                        <img src="{{ prod.image }}" loading="eager" 
+                             alt="{{ prod.name }}" title="{{ prod.name }}" 
+                             style="display:inline; width:100%; height:300px;">
+                    </a>
+                    <div class="card-body text-center">
+                        <h3 class="card-title" style="height:60px;">{{ prod.name }}</h3>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <p><h3 class="text-center" style="color: pink;">Best Seller Flowers</h3></p>
+    <p><h3 class="text-center" style="color: pink;">A flowery affair for you!</h3></p>
+
+    <div class="containa mt-5">
+        <div class="row">
+            {% for prod in mainproduct %}
+            <div class="col-lg-3" style="display:inline; width:100%; height:600px;">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <div class="card" id="{{ prod.id }}">
+                        <a href="{% url 'mainsubproduct' prod.id %}">
+                            <img src="{{ prod.image.url }}" loading="eager" 
+                                 alt="{{ prod.name }}" 
+                                 title="{{ prod.name }}" 
+                                 style="display:inline; width:100%; height:350px; margin-bottom: 10px;">
+                        </a>
+                        <div class="card-body text-center">
+                            <h3 class="card-title" style="height:65px;">{{ prod.name }}</h3>
+                            <p class="card-text">₹{{ prod.price }}</p>
+                            <a href="{% url 'cart_add' prod.id 'MainProduct' %}" class="btn btn-primary">Add to Cart</a>
+                            <input type="hidden" name="Item_Name" value="{{ prod.name }}">
+                            <input type="hidden" name="Price" value="{{ prod.price }}">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+
+    <div class="container-fluid">
+        <div class="row">
+            {% for prod in lastproduct %}
+            <div class="col-lg-4" style="margin-bottom: 10px; display: flex; justify-content: center; align-items: center;">
+                <div class="half-circle-container" style="margin-bottom: 10px;">
+                    <div class="content">
+                        {% csrf_token %}
+                        <div class="card" id="{{ prod.id }}"> 
+                            <form action="" method="POST">
+                                <a href="{% url 'sublastproduct' prod.id %}">
+                                    <img src="{{prod.image}}" loading="eager" alt="Luxury Flowers" srcset="{{prod.image}}" title="Luxury Flowers">
+                                </a>
+                                <h5 class="text-center">{{prod.name}}</h5>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           {%endfor%}
+        </div>
+    </div>
+
+</body>
+</html>
+
+{% endblock%}
