@@ -1,5 +1,5 @@
-web: gunicorn flowerorder.wsgi --log-file - 
-web: gunicorn flowerorder.wsgi --bind 0.0.0.0:$PORT
+web: gunicorn F_order.wsgi --log-file - 
+web: gunicorn F_order.wsgi --bind 0.0.0.0:$PORT
 
 #or works good with external database
-web: python manage.py migrate && gunicorn flowerorder.wsgi
+web: python manage.py migrate && gunicorn F_order.wsgi
